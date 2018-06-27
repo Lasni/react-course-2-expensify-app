@@ -24,9 +24,6 @@ beforeEach(() => {
   );
 });
 
-// -------------------------------------------------------------------------
-// NOT WORKING CORRECTLY
-// -------------------------------------------------------------------------
 test('should render ExpenseListFilters correctly', () => {
   expect(wrapper).toMatchSnapshot();
 });
@@ -78,5 +75,3 @@ test('should handle date focus changes', () => {
   wrapper.find('DateRangePicker').prop('onFocusChange')(calendarFocused)
   expect(wrapper.state('calendarFocused')).toBe(calendarFocused)
 })
-// -------------------------------------------------------------------------
-// -------------------------------------------------------------------------
