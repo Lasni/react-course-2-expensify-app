@@ -1,24 +1,13 @@
 import uuid from 'uuid'
 import database from '../firebase/firebase'
 
+// ADD_EXPENSE
 export const addExpense = (expense) => ({
   type: 'ADD_EXPENSE',
   expense
 })
 
-// remove expense action
-export const removeExpense = ({ id } = {}) => ({
-  type: 'REMOVE_EXPENSE',
-  id: id
-})
-
-// edit expense action
-export const editExpense = (id, updates) => ({
-  type: 'EDIT_EXPENSE',
-  id: id,
-  updates
-})
-
+// async
 export const startAddExpense = (expenseData = {}) => {
   return (dispatch) => {
     const {
@@ -39,6 +28,33 @@ export const startAddExpense = (expenseData = {}) => {
   };
 };
 
+
+// REMOVE_EXPENSE
+// remove expense action
+export const removeExpense = ({ id } = {}) => ({
+  type: 'REMOVE_EXPENSE',
+  id: id
+})
+
+// async action for removing the expense from firebase
+export const startRemoveExpense = ({ id } = {}) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense({ id }))
+    })
+  }
+}
+
+
+// EDIT_EXPENSE
+// edit expense action
+export const editExpense = (id, updates) => ({
+  type: 'EDIT_EXPENSE',
+  id: id,
+  updates
+})
+
+
 // SET_EXPENSES
 export const setExpenses = (expenses) => ({
   type: 'SET_EXPENSES',
@@ -46,7 +62,7 @@ export const setExpenses = (expenses) => ({
 })
 
 // export const startSetExpenses
-// for keeping the expenses even after refreshing the page
+// async action for keeping the expenses even after refreshing the page
 export const startSetExpenses = () => {
   return (dispatch) => {
     return database.ref('expenses').once('value').then((snapshot) => {
@@ -63,3 +79,4 @@ export const startSetExpenses = () => {
     })
   }
 }
+
