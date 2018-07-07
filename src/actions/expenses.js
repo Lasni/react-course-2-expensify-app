@@ -54,6 +54,15 @@ export const editExpense = (id, updates) => ({
   updates
 })
 
+// async
+export const startEditExpense = (id, updates) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).update(updates).then(() => { // applies changes on firebase level
+      dispatch(editExpense(id, updates)) // applies changes on redux level
+    })
+  }
+}
+
 
 // SET_EXPENSES
 export const setExpenses = (expenses) => ({
