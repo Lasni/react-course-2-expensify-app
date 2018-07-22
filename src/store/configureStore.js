@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'  // have 3rd party imports before your own
 import expensesReducer from '../reducers/expenses'
 import filtersReducer from '../reducers/filters'
